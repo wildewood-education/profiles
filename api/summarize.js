@@ -1,4 +1,7 @@
 export default async function handler(req, res) {
+  console.log('API key present:', !!process.env.ANTHROPIC_API_KEY);
+  console.log('API key prefix:', process.env.ANTHROPIC_API_KEY?.slice(0, 10));
+
   // Only allow POST requests
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
@@ -78,10 +81,12 @@ Do not use headers. Do not use bullet points. Just flowing prose. Do not start w
 
     if (!response.ok) {
       const error = await response.json();
+      console.error('Anthropic API error:', JSON.stringify(error));
       return res.status(500).json({ error: 'Anthropic API error', details: error });
     }
 
     const data = await response.json();
+    console.log('Anthropic response:', JSON.stringify(data).slice(0, 200));
     const summary = data.content?.[0]?.text || '';
     return res.status(200).json({ summary });
 
