@@ -561,11 +561,13 @@ const fixedQuestions = [
       { label: "I rarely feel overwhelmed by it", tag: "Steady Hands" },
     ]},
   { axis: null, phase: 'flavor', type: 'choice', section: 'Habits & Tendencies',
-    text: "Have you ever tried an email organizing system (e.g. folders and labels) and abandoned it?",
+    text: "How would you describe your history with email organizing systems?",
     options: [
-      { label: "Yes, more than once", tag: "Serial System-Starter" },
-      { label: "Once or twice", tag: "One Reboot In" },
-      { label: "No, never really tried", tag: "Never Bothered" },
+      { label: "Never tried one — and not really interested in starting", tag: "Never Bothered" },
+      { label: "Never tried one — but open to it", tag: "First-Timer" },
+      { label: "Tried one but it didn't stick", tag: "One Reboot In" },
+      { label: "Tried a few, none lasted", tag: "Serial System-Starter" },
+      { label: "I have one that's been working for a while", tag: "System Keeper" },
     ]},
   { axis: null, phase: 'flavor', type: 'choice', section: 'Habits & Tendencies',
     text: "When you've tried to build a new habit before (not just email), which sounds most like you?",
@@ -1311,7 +1313,7 @@ async function fetchPersonalizedSummary(key, modalType, cacheKey, summaryEl) {
     summaryEl.textContent = summary;
 
   } catch (err) {
-    summaryEl.textContent = 'Couldn\'t load your personalized summary right now.';
+    summaryEl.textContent = 'Error: ' + err.message;
   }
 }
 function closeModal() { document.getElementById('modalOverlay').classList.remove('active'); }
