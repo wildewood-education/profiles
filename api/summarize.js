@@ -91,6 +91,7 @@ Do not use headers. Do not use bullet points. Just flowing prose. Do not start w
     return res.status(200).json({ summary });
 
   } catch (err) {
-    return res.status(500).json({ error: 'Server error', details: err.message });
+    console.error('Function error:', err.message, err.stack);
+    return res.status(500).json({ error: 'Server error', details: err.message, stack: err.stack });
   }
 }
